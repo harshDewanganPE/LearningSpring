@@ -1,6 +1,7 @@
 package com.harsh.sample.entity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -38,6 +39,8 @@ public class User {
 
     @DBRef
     private ArrayList<JournalEntry> journalEntries = new ArrayList<>();
+
+    private List<String> roles;
 
 }
  
