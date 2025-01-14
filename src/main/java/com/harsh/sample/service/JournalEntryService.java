@@ -10,7 +10,6 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 // import org.springframework.validation.ObjectError;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.harsh.sample.entity.JournalEntry;
 import com.harsh.sample.entity.*;
@@ -34,8 +33,7 @@ public class JournalEntryService {
             entry.setDate(LocalDateTime.now());
             JournalEntry saved = repository.save(entry);
             user.getJournalEntries().add(saved);
-            userService.saveEntry(user);
-
+            userService.saveUser(user);
         } catch (Exception e) {
             System.out.println(e);
             throw new RuntimeException("an error occured" , e);
@@ -60,11 +58,27 @@ public class JournalEntryService {
         repository.deleteById(id);
     }
 
-    public void deleteById(ObjectId myId, String userName) {
-        User user = userService.findByUserName(userName);
-        user.getJournalEntries().removeIf(x -> x.getId().equals(myId));
-        userService.saveEntry(user);
-        repository.deleteById(myId);
+    public boolean deleteById(ObjectId myId, String userName) {
+        boolean removed = false;
+        try{
+            User user = userService.findByUserName(userName);
+            removed = user.getJournalEntries().removeIf(x -> x.getId().equals(myId));
+            if(removed){
+                userService.saveUser(user);
+                repository.deleteById(myId);
+            }
+
+
+        }catch (Exception e){
+             System.out.println(e);
+             throw new RuntimeException("an error occured while deleting the entry", e);
+        }
+
+        return removed;
         // throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
     }
+
+
+
+
 }
