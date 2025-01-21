@@ -1,6 +1,11 @@
 package com.harsh.sample.service;
 
 import com.harsh.sample.api.response.PincodeResponse;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -16,15 +21,12 @@ public class PincodeService {
     @Autowired
     private RestTemplate restTemplate;
 
-    public PincodeResponse getPostalInfo(String city){
+    public List<PincodeResponse> getPostalInfo(String city){
 
         String finalApi = url.replace("CITY", city);
+        ResponseEntity<PincodeResponse[]> res = restTemplate.exchange(finalApi,   HttpMethod.GET , null, PincodeResponse[].class );
 
-        ResponseEntity<PincodeResponse> res = restTemplate.exchange(finalApi, HttpMethod.GET , null, PincodeResponse.class );
-
-        PincodeResponse body = res.getBody();
-        return body;
+        return res.getBody() != null ? Arrays.asList(res.getBody()) : Collections.emptyList();
 
     }
-
 }

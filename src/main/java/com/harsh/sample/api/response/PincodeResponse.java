@@ -1,46 +1,52 @@
 package com.harsh.sample.api.response;
 
-
  import com.fasterxml.jackson.databind.ObjectMapper; // version 2.11.1
  import com.fasterxml.jackson.annotation.JsonProperty; // version 2.11.1
+ import lombok.Getter;
+ import lombok.Setter;
 
  import java.util.ArrayList;
+import java.util.List;
 
-
+@Getter
+@Setter
 public class PincodeResponse {
 
     @JsonProperty("Message")
-    public String message;
+    private String message;
     @JsonProperty("Status")
-    public String status;
+    private String status;
     @JsonProperty("PostOffice")
-    public ArrayList<PostOffice> postOffice;
+    private List<PostOffice> postOffice;
 
-    public class PostOffice{
+
+    @Getter
+    @Setter
+    public static class PostOffice{
         @JsonProperty("Name")
-        public String name;
+        private String name;
         @JsonProperty("Description")
-        public Object description;
+        private Object description;
         @JsonProperty("BranchType")
-        public String branchType;
+        private String branchType;
         @JsonProperty("DeliveryStatus")
-        public String deliveryStatus;
+        private String deliveryStatus;
         @JsonProperty("Circle")
-        public String circle;
+        private String circle;
         @JsonProperty("District")
-        public String district;
+        private String district;
         @JsonProperty("Division")
-        public String division;
+        private String division;
         @JsonProperty("Region")
-        public String region;
+        private String region;
         @JsonProperty("Block")
-        public String block;
+        private String block;
         @JsonProperty("State")
-        public String state;
+        private String state;
         @JsonProperty("Country")
-        public String country;
+        private String country;
         @JsonProperty("Pincode")
-        public String pincode;
+        private String pincode;
     }
 
 }
