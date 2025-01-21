@@ -8,3 +8,5 @@ spring:
       database: journaldb
       auto-index-creation: true
 
+
+URL: "https://api.postalpincode.in/pincode/CITY"
